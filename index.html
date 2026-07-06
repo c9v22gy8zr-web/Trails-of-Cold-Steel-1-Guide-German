@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trails of Cold Steel – Thors Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EEE1; --paper2:#EDE5D3; --ink:#2A2118; --crimson:#8E1B26; --crimson-d:#6B121B;
+    --gold:#A98A3F; --green:#2E4B3A; --mist:#8C7F6A;
+    --display:'Cinzel',serif; --body:'EB Garamond',Georgia,serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--body); font-size:16.5px; min-height:100vh; padding-bottom:90px;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 3px, rgba(42,33,24,.012) 3px 4px),
+      radial-gradient(circle at 50% -20%, rgba(169,138,63,.16), transparent 60%);
+  }
+  ::selection{background:var(--crimson);color:#fff}
+
+  /* ---------- HERO ---------- */
+  header{padding:52px 20px 36px; text-align:center; position:relative;
+    border-bottom:1px solid var(--gold)}
+  header::after{content:""; position:absolute; left:0; right:0; bottom:3px; height:1px; background:var(--gold); opacity:.6}
+  .crest{font-family:var(--display); color:var(--gold); font-size:13px; letter-spacing:.5em; text-transform:uppercase}
+  .rule{color:var(--gold); font-size:13px; letter-spacing:.4em; margin:10px 0}
+  h1{font-family:var(--display); font-weight:700; line-height:1.05; font-size:clamp(32px,6.4vw,62px);
+    color:var(--crimson); margin:6px 0 2px}
+  h1 small{display:block; font-size:clamp(15px,2.4vw,22px); color:var(--ink); font-weight:600; letter-spacing:.18em; margin-top:6px}
+  .hero-sub{max-width:640px; margin:14px auto 0; font-size:16.5px; font-style:italic; color:#4E4234}
+  .gauges{display:flex; flex-wrap:wrap; gap:26px; margin:26px auto 0; max-width:860px; justify-content:center; text-align:left}
+  .gauge{min-width:260px; flex:1; max-width:400px}
+  .glabel{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; letter-spacing:.12em; margin-bottom:6px; color:#5E5140}
+  .gbar{height:13px; background:#E0D6C1; border:1.5px solid var(--gold); position:relative}
+  .gbar .target{position:absolute; top:-4px; bottom:-4px; width:2px; background:var(--green); left:97.7%}
+  .gfill{height:100%; transition:width .5s ease; width:0%}
+  .gfill.red{background:linear-gradient(90deg,var(--crimson-d),var(--crimson))}
+  .gfill.gold{background:linear-gradient(90deg,#8A6F2E,var(--gold))}
+  .gnote{font-family:var(--mono); font-size:10.5px; color:var(--mist); margin-top:5px}
+  .ap-ctl{display:flex; align-items:center; gap:8px; margin-top:8px}
+  .apbtn{font-family:var(--mono); font-weight:700; font-size:13px; padding:5px 10px; border:1.5px solid var(--crimson);
+    background:transparent; color:var(--crimson); cursor:pointer}
+  .apbtn:hover{background:var(--crimson); color:var(--paper)}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky; top:0; z-index:50; background:rgba(244,238,225,.96); backdrop-filter:blur(4px);
+    border-top:3px double var(--gold); border-bottom:3px double var(--gold);
+    display:flex; gap:2px; overflow-x:auto; padding:9px 14px; justify-content:safe center; scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  .tab{font-family:var(--display); font-weight:600; letter-spacing:.1em; font-size:13px; text-transform:uppercase;
+    color:#5E5140; background:transparent; border:none; border-bottom:2px solid transparent; padding:8px 15px; cursor:pointer; white-space:nowrap; transition:all .15s}
+  .tab:hover{color:var(--crimson)}
+  .tab.active{color:var(--crimson); border-bottom-color:var(--crimson)}
+  .tab:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--green); outline-offset:2px}
+
+  /* ---------- PANELS ---------- */
+  main{max-width:1020px; margin:34px auto 0; padding:0 16px}
+  section{display:none}
+  section.show{display:block; animation:fade .3s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion:reduce){ section.show{animation:none} .gfill{transition:none} }
+
+  .panel{background:#FBF7EC; border:1.5px solid var(--gold); outline:1px solid var(--gold); outline-offset:4px;
+    padding:26px 24px 26px; margin-bottom:34px; box-shadow:0 2px 14px rgba(42,33,24,.08)}
+  .panel h2{font-family:var(--display); font-weight:700; font-size:clamp(20px,3.4vw,27px); color:var(--crimson); line-height:1.1}
+  .kicker{font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:4px}
+  p.lead{margin:10px 0 14px; max-width:72ch; color:#4E4234}
+  .orn{color:var(--gold); text-align:left; letter-spacing:.3em; font-size:12px; margin:6px 0 10px}
+
+  .badge{display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.08em;
+    padding:2.5px 8px; text-transform:uppercase; margin-right:6px; border:1px solid currentColor}
+  .b-hid{color:var(--crimson)}
+  .b-frei{color:var(--green)}
+  .b-feld{color:#7A5C16}
+  .b-ap{background:var(--ink); color:var(--gold); border:none}
+  .b-warn{background:var(--crimson); color:#fff; border:none}
+
+  .row{display:flex; gap:12px; align-items:flex-start; padding:11px 4px; border-bottom:1px solid rgba(169,138,63,.4)}
+  .row:last-child{border-bottom:none}
+  .row.done .txt{opacity:.45}
+  .row.done .txt .t-name{text-decoration:line-through}
+  .chk{appearance:none; flex:0 0 auto; width:22px; height:22px; margin-top:2px; border:1.5px solid var(--crimson);
+    background:#fff; cursor:pointer; border-radius:50%; position:relative}
+  .chk:checked{background:var(--crimson)}
+  .chk:checked::after{content:"✓"; position:absolute; inset:0; display:grid; place-items:center; color:var(--paper); font-weight:700; font-size:13px; font-family:var(--body)}
+  .txt{font-size:15.5px}
+  .txt small{display:block; color:#6B5D4A; font-size:13.5px; margin-top:2px}
+
+  /* chapter accordions */
+  details{border:1.5px solid var(--gold); margin-bottom:12px; background:#FFFDF6}
+  summary{font-family:var(--display); font-weight:600; font-size:15.5px; padding:12px 16px; cursor:pointer;
+    list-style:none; display:flex; justify-content:space-between; align-items:center; gap:10px; color:var(--ink)}
+  summary .sum-i{font-family:var(--mono); font-size:10.5px; color:var(--gold)}
+  summary::after{content:"❦"; color:var(--gold); font-size:14px}
+  details[open] summary{background:var(--crimson); color:var(--paper)}
+  details[open] summary .sum-i{color:var(--paper)}
+  details[open] summary::after{color:var(--gold)}
+  .dbody{padding:6px 16px 14px}
+  .chip{display:inline-block; font-family:var(--mono); font-size:10.5px; padding:2px 8px; border:1px solid var(--green);
+    color:var(--green); margin:0 6px 6px 0}
+
+  /* bonding */
+  .cgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px}
+  .ccard{border:1.5px solid var(--gold); background:#FFFDF6; padding:14px 14px 15px}
+  .ccard .arc{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold)}
+  .ccard h3{font-family:var(--display); font-size:17.5px; font-weight:600; color:var(--crimson)}
+  .ccard .meta{font-size:13.5px; color:#6B5D4A; margin:4px 0 10px; min-height:26px}
+  .rankctl{display:flex; align-items:center; gap:8px}
+  .rbtn{font-family:var(--mono); font-weight:700; font-size:15px; width:29px; height:29px; border:1.5px solid var(--crimson);
+    background:transparent; color:var(--crimson); cursor:pointer; border-radius:50%}
+  .rbtn:active{background:var(--crimson); color:#fff}
+  .pips{display:flex; gap:3px; flex:1}
+  .pip{flex:1; height:10px; background:#E6DCC8; border:1px solid var(--gold); border-radius:5px}
+  .pip.on{background:var(--crimson)}
+  .pip.max{background:var(--gold)}
+  .rnum{font-family:var(--mono); font-weight:700; font-size:12px; min-width:34px; text-align:right}
+
+  /* counters */
+  .counter{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:13px 4px;
+    border-bottom:1px solid rgba(169,138,63,.4); flex-wrap:wrap}
+  .counter:last-child{border:none}
+  .cinfo{flex:1; min-width:220px}
+  .cinfo b{font-size:16px}
+  .cinfo small{display:block; color:#6B5D4A; font-size:13.5px}
+  .cctl{display:flex; align-items:center; gap:8px}
+  .cval{font-family:var(--mono); font-weight:700; font-size:14px; min-width:70px; text-align:center;
+    border:1.5px solid var(--gold); color:var(--crimson); padding:4px 8px; background:#FFFDF6}
+  .cval.full{color:var(--green); border-color:var(--green)}
+
+  .note{font-size:13.5px; color:#6B5D4A; margin-top:16px; border-top:3px double var(--gold); padding-top:10px; font-style:italic}
+  .footer{max-width:1020px; margin:6px auto 0; padding:0 16px; text-align:center; font-family:var(--mono); font-size:10.5px;
+    color:var(--mist); letter-spacing:.2em; text-transform:uppercase}
+  .reset{background:none; border:1px solid var(--mist); color:var(--mist); font-family:var(--mono); font-size:10.5px;
+    padding:5px 10px; cursor:pointer; margin-left:10px}
+  .reset:hover{border-color:var(--crimson); color:var(--crimson)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="crest">Thors Militärakademie · Klasse VII</div>
+  <div class="rule">━━━━━ ❖ ━━━━━</div>
+  <h1>Trails of Cold Steel<small>Studienbegleiter für Rang A0</small></h1>
+  <p class="hero-sub">Alle versteckten Quests, jede Bonus-AP-Falle, Bonding-Planung und die Nebensysteme der Akademie – auf dem Weg zum Jahrgangsbesten. Dein Fortschritt wird automatisch gespeichert.</p>
+  <div class="gauges">
+    <div class="gauge">
+      <div class="glabel"><span>AKADEMISCHE PUNKTE (AP)</span><span id="apval">0 / 440</span></div>
+      <div class="gbar"><div class="gfill red" id="apfill"></div><div class="target" title="A0-Schwelle: 430"></div></div>
+      <div class="gnote">Rang A0 („Valedictorian") ab 430 – nur 10 AP dürfen fehlen! Trage deinen Stand nach jedem Kapitel-Report ein:</div>
+      <div class="ap-ctl">
+        <button class="apbtn" data-d="-5">−5</button><button class="apbtn" data-d="-1">−1</button>
+        <button class="apbtn" data-d="1">+1</button><button class="apbtn" data-d="5">+5</button><button class="apbtn" data-d="10">+10</button>
+      </div>
+    </div>
+    <div class="gauge">
+      <div class="glabel"><span>GESAMT-FORTSCHRITT</span><span id="ppct">0%</span></div>
+      <div class="gbar"><div class="gfill gold" id="pfill"></div></div>
+      <div class="gnote" id="memnote">Alle Tracker der App zusammen</div>
+    </div>
+  </div>
+</header>
+
+<nav id="nav"></nav>
+<main id="main"></main>
+<div class="footer">Fortitude · Wisdom · Nobility <button class="reset" id="resetBtn">Fortschritt zurücksetzen</button></div>
+
+<script>
+/* =================== DATEN =================== */
+const RULES = [
+ ["Mit ALLEN reden – immer wieder","Es ist ein Trails-Spiel: NPCs nach jedem Story-Beat erneut ansprechen. Charakternotizen, Rezepte, Bücher und versteckte Quests hängen daran."],
+ ["Versteckte Quests = Pflicht für A0","15 Stück, keine steht im Questbrief oder auf der Karte. Je ~4 AP plus Bonus – wer sie verpasst, kann A0 (430/440 AP) vergessen. Komplette Liste im Kapitel-Tab."],
+ ["Bonus-AP bei Dialogwahlen","Viele Quests haben +1/+2-AP-Bedingungen (richtige Antworten, Zusatzorte, keine K.O.s in Praxisprüfungen). Vor kniffligen Entscheidungen speichern."],
+ ["Das alte Schulhaus IMMER zuletzt","Der Schulhaus-Besuch treibt am freien Tag die Story voran. Erst alle Quests, Bonding und Einkäufe, dann rein – und danach auf die übliche versteckte Quest achten."],
+ ["Für die Zwischenprüfung LERNEN","Richtige Antworten allein reichen nicht: Ohne die Lernschritte (Bücher lesen, Mitschüler ansprechen, z. B. am 15.6.) gibt es keine AP."],
+ ["Auf Feldstudien nichts anstoßen","Story-Events beenden den Tag. Erst alle Quests und Gespräche abschließen, dann zum markierten Ziel."],
+ ["Bücher sofort kaufen/lesen","Imperial Chronicle und Sammelbände gibt es pro Kapitel – wer eine Ausgabe verpasst, verliert die Bücher-Trophäe. Bei jedem Händler (auch unterwegs!) den Bestand prüfen."],
+ ["Monsterkunde pflegen","197 Einträge; viele Gegner sind einmalig. Neue Gegnertypen und Bosse immer analysieren/besiegen, bevor ein Gebiet Geschichte ist."],
+ ["Sitting Mishy in Celdic kaufen","Am Marktstand (Hofen) in Kapitel 1 – die Puppe wird später für einen wichtigen Tausch gebraucht."],
+ ["Zwei Durchgänge einplanen","Alle Max-Bonding-Szenen sind in einem Run unmöglich (begrenzte Punkte). NG+ überträgt Bonding-Maximum & Notizbuch – dafür im ersten Run die 4 Löwenherz-Medaillen sichern!"]
+];
+
+const CHAPTERS = [
+ {n:"Prolog · Winterende (31.3.–3.4.)", ort:"Trista / Thors", items:[
+   {id:"p1", k:"note", t:"Erste AP-Frage im Unterricht", s:"Instructor Thomas' Frage mit „Nord Highlands" beantworten (+AP). Danach in der Bibliothek „Imperial Railways: A History" lesen – erstes Buch der Sammlung!"},
+   {id:"p2", k:"note", t:"Trista erkunden", s:"Angelbuch abholen, beim Buchladen (Keynes) „Red Moon Rose – Kapitel 1" mitnehmen, mit allen NPCs sprechen."}
+ ]},
+ {n:"Kapitel 1 · April – Feldstudie: Celdic", ort:"Freier Tag 18.4. · Praxisprüfung 21.4. · Celdic 23.–25.4.", items:[
+   {id:"c1h1", k:"hid", t:"Story of Seasoning", s:"18.4. abends · Kirsche's Café & Inn · Fred an der Theke. Zutat via EC-Raum (Nicholas) & Ramsay in der Küche besorgen."},
+   {id:"c1p", k:"ap", t:"Praxisprüfung 21.4.: ohne K.O. gewinnen", s:"+1 Bonus-AP am Kapitelende."},
+   {id:"c1h2", k:"hid", t:"A Day as a Merchant", s:"24.4. · Grand Market Celdic (südwestlicher Stand) · Händler Lymon. 3+2 AP – die Verkaufs-Dialoge richtig wählen (u. a. „The provinces"). Vorher NICHT im Gasthaus den Tag beenden!"},
+   {id:"c1n", k:"note", t:"Celdic-Einkäufe", s:"Sitting Mishy (Hofen-Stand!), Carnelia-Reprints 1 & 2 (Tommy's Imported Goods), Rezept „Whole Juice" bei Tisel im Farmhaus. Straßenlaterne West-Celdic-Highway 2: Code „466515" (+1 AP)."}
+ ]},
+ {n:"Kapitel 2 · Mai – Feldstudie: Bareahard", ort:"Freier Tag 23.5. · Bareahard 30.–31.5.", items:[
+   {id:"c2h1", k:"hid", t:"A Rose by Any Other Name", s:"23.5. abends · Kunstraum, Hauptgebäude 2F · Linde."},
+   {id:"c2p", k:"ap", t:"Praxisprüfung: Arts-Zauber unterbrechen", s:"Gegnerischen Cast z. B. mit Reans Autumn Leaf Cutter (Impede) canceln → +1 AP."},
+   {id:"c2h2", k:"hid", t:"The Lost Traveler", s:"30.5. · Aurochs-Fort-Eingang · Anton (Serien-Veteran!) zurück nach Bareahard eskortieren."},
+   {id:"c2n", k:"note", t:"Bareahard-Nebenläufe", s:"Hammonds Zutatenliste (Sorciere): Globby Fat ×5 (Nord-Kreuzen-Highway) + Healing Herb (Schwester Tatiana, Kathedrale). Monster-Quest zuletzt – sie treibt die Story voran!"}
+ ]},
+ {n:"Kapitel 3 · Juni – Feldstudie: Nord-Hochebene", ort:"Freier Tag 20.6. · Nord 27.–29.6. · Zwischenprüfung!", items:[
+   {id:"c3s", k:"ap", t:"15.6.: Für die Zwischenprüfung lernen", s:"OHNE Lernschritte keine Prüfungs-AP: u. a. „Erebonian History in Pictures" im Literaturclub lesen und die vorgegebenen Mitschüler ansprechen – erst danach sind die richtigen Antworten etwas wert."},
+   {id:"c3h1", k:"hid", t:"A Sticky Situation", s:"20.6. abends · Hauptgebäude · Munk."},
+   {id:"c3h2", k:"hid", t:"Connecting Hearts", s:"27.6. · Zender-Tor · Sharl."}
+ ]},
+ {n:"Kapitel 4 · Juli – Feldstudie: Heimdallr", ort:"Freier Tag 18.7. · Heimdallr 25.–26.7. · 3 versteckte Quests!", items:[
+   {id:"c4h1", k:"hid", t:"Swimming Lessons", s:"18.7. tagsüber · Lehrerzimmer · Neithardt. Wettschwimmen gegen einen Mitschüler (Link-EXP!) – GEWINNEN für +1 AP (4+1). Beliebig wiederholbar."},
+   {id:"c4h2", k:"hid", t:"A Brush with Destiny", s:"18.7. abends · Verbrennungsanlage/Akademie-Gelände · Hausmeister Gyler → danach Rektor Vandyck."},
+   {id:"c4h3", k:"hid", t:"In Case of Emergency", s:"26.7. · Vainqueur-Straße (Plaza Bifrost) · Bond → Saftstand vor Hotel Der Himmel (Jonathan) → Café Etoile (Tourist)."},
+   {id:"c4n", k:"note", t:"Heimdallr komplett ablaufen", s:"Mater Park über den Untergrund-Durchgang (Hotel Der Himmel) finden, neue Angelplätze (Waterway, Hafen, Mater Park, Dreichels-Platz), Rezept „Fried Fish" bei Gamgee, Schrittzähler-Quest bei Le Sage."}
+ ]},
+ {n:"Kapitel 5 · August – Feldstudie: Legram", ort:"Freier Tag 22.8. · Legram 29.–31.8. · 3 versteckte Quests!", items:[
+   {id:"c5s", k:"ap", t:"21.8.: Unterrichtsfrage", s:"„Eisenritter" antworten (+1 AP)."},
+   {id:"c5h1", k:"hid", t:"Swimming Lessons Mk. 2", s:"22.8. tagsüber · Lehrerzimmer · Sara. Diesmal gegen die Mädchen – wieder gewinnen (4+1 AP)."},
+   {id:"c5h2", k:"hid", t:"The Sleeping Boy", s:"22.8. abends · Haus südlich des Pfandhauses in Trista · Hanna → Kurt in der Kapelle (erste Antwort wählen)."},
+   {id:"c5h3", k:"hid", t:"Charm of Eisenritter", s:"29.8. · Anlegestelle hinter der Bracer-Gilde in Legram · Cindy. Luminous Grass auf dem Ebel-Highway 2 pflücken."},
+   {id:"c5n", k:"note", t:"Okkult-Rundgang", s:"Beryls Geistergeschichten-Kette (Okkult-Club, Studentenwerk 2F): alle fünf Zeugen abklappern (Kenneth, Friedel, Paula, Clara, Lotte) – gibt Notizen & AP."}
+ ]},
+ {n:"Kapitel 6 · September – Feldstudie: Roer", ort:"Freier Tag 19.9. · Praxisprüfung 22.9. · Roer 25.–27.9.", items:[
+   {id:"c6h1", k:"hid", t:"Celestin's Secret", s:"19.9. abends · Trainingshalle im Gym · Patrick → Lotte (Oberklassen-Wohnheim) → Sharon. Beim Kartentrick VORHER SPEICHERN: richtige Karte = +2 AP."},
+   {id:"c6p", k:"ap", t:"Praxisprüfung 22.9. (Instructor Sara!)", s:"Niemand darf auf niedrige HP fallen UND Sieg in unter 40 Runden → +2 AP."},
+   {id:"c6h2", k:"hid", t:"Orbal-Störungs-Messung (Roer)", s:"25.9. · RF-Laden · Chef Johann. Mit dem Orbal-Wellen-Detektor alle 5 Orte messen (Jackass-Werkstatt, Kathedrale, ???-Tür, Dining Bar F, Institut) → +2 AP. Beim Institut Ratto ansprechen: seine Linium-Kette in den Sachsen-Minen lohnt sich (4 AP + U-Material). Fie am Aufzug selbst entdecken = +2 AP!"}
+ ]},
+ {n:"Finalkapitel · Oktober – Schulfest & Prüfung", ort:"Festival 22.–23.10. · A0-Trophäe am 23.10.", items:[
+   {id:"f1", k:"hid", t:"Letzte versteckte Quest des Spiels", s:"Während der Festival-Phase aktiv: vor und während des Schulfests mit allen NPCs in Trista/auf dem Campus sprechen, damit sie nicht durchrutscht (Quest Nr. 15)."},
+   {id:"f2", k:"ap", t:"Mint-Versorgungsquest maximal erfüllen", s:"Gerichte mit insgesamt 8.000+ HP-Heilung abgeben (Jewel Potage kaufen, Celestial Pasta Soup & Wobbly Pudding kochen) → beste Belohnungsstufe."},
+   {id:"f3", k:"note", t:"Colette-Tausch am 21.10.", s:"Accessoire-Sets gegen Zemuria-Erz-Splitter tauschen – vorher nichts davon verkaufen!"},
+   {id:"f4", k:"note", t:"Löwenherz-Finale", s:"Mit 3 Medaillen zu Rektor Vandyck: vierte Medaille + Master-Quartz Thor ODER Chevalier (je nach gewähltem Instructor)."}
+ ]}
+];
+
+const BONDING = [
+ {id:"alisa", n:"Alisa Reinford", note:"Klasse VII"},
+ {id:"laura", n:"Laura S. Arseid", note:"Klasse VII"},
+ {id:"emma", n:"Emma Millstein", note:"Klasse VII"},
+ {id:"fie", n:"Fie Claussell", note:"Klasse VII"},
+ {id:"elliot", n:"Elliot Craig", note:"Klasse VII"},
+ {id:"machias", n:"Machias Regnitz", note:"Klasse VII"},
+ {id:"jusis", n:"Jusis Albarea", note:"Klasse VII"},
+ {id:"gaius", n:"Gaius Worzel", note:"Klasse VII"},
+ {id:"millium", n:"Millium Orion", note:"Stößt spät dazu – Events nicht verpassen"},
+ {id:"towa", n:"Towa Herschel", note:"Schülerrat – eigene Bonding-Events"},
+ {id:"sharon", n:"Sharon Kreuger", note:"Wohnheim – eigene Bonding-Events"}
+];
+const BOND_NOTES = [
+ ["Punkte sind knapp","Pro freiem Tag gibt es nur wenige Bonding-Punkte – alle Max-Bindungen in einem Durchgang sind UNMÖGLICH. Entscheide dich, wessen Geschichte du diesen Run sehen willst."],
+ ["Events mit Notiz-Symbol zuerst","Manche Bonding-Events aktualisieren die Charakternotizen (fürs Notizbuch-Achievement) – die haben Vorrang."],
+ ["Link-EXP nebenbei","Die Schwimm-Quests (Kap. 4/5) und einige Events geben dicke Link-EXP – Kampflinks sind in CS1 spielentscheidend (Rush/Burst!)."],
+ ["Finale & NG+","Vor dem Schulfest wählst du, mit wem Rean den Abend verbringt. Im NG+ lassen sich maximale Bonding-Punkte übertragen – so siehst du im zweiten Run den Rest."]
+];
+
+const SYSTEMS = [
+ {id:"lion", n:"Löwenherz-Medaillen", max:4, s:"Aufgaben der Instructors in Kap. 5, 6 und Finale erfüllen, dann Vandyck ansprechen. PFLICHT im ersten Durchgang, sonst braucht die Platin-Route 3 Runs! Belohnung: Master-Quartz Thor oder Chevalier."},
+ {id:"recipes", n:"Rezepte", max:20, s:"Aus Quests und NPC-Gesprächen. Volles Rezeptbuch (alle Gerichte gekocht) → Margarita vor dem Schulhaus-Finale ansprechen."},
+ {id:"celine", n:"Celine mit Milch füttern (Kapitel)", max:5, s:"Ab Kapitel 3 taucht die Katze pro Kapitel an mehreren Orten auf – überall Frische Milch geben, jede komplette Runde gibt eine Belohnung."},
+ {id:"hidden", n:"Versteckte Quests", max:15, s:"2 pro Kapitel, außer Kap. 4 & 5 (je 3) und Finale (1). Details im Kapitel-Tab – jede einzelne zählt für A0."},
+ {id:"monsters", n:"Monsterkunde", max:197, s:"Alle Spezies besiegen/analysieren. Achtung bei Panda-, Waschbär- und Tomaten-Gegnern („No appearance") und einmaligen Story-Gegnern."},
+ {id:"lotte", n:"Einzigartige Gerichte an Lotte", max:12, s:"Vor dem Oberklassen-Wohnheim nimmt Lotte jedes Unique-Gericht einmal an – Belohnungsstaffel (Zähler als Richtwert)."},
+ {id:"thomas", n:"Peculiar-Gerichte an Instructor Thomas", max:12, s:"Gleiche Mechanik mit den „misslungenen" Spezialgerichten (Zähler als Richtwert)."},
+ {id:"fish", n:"Angelrang bei Kenneth", max:10, s:"Neue Fischarten fangen und Kenneth (Teich am Gym) melden – jede Stufe gibt Köder/Privilegien (Zähler als Richtwert)."}
+];
+
+const BOOKS = [
+ {id:"b1", t:"Imperial Chronicle – jede Ausgabe", s:"Erscheint kapitelweise (Buchladen/NPCs) und ist danach WEG. Bei jedem Kapitelstart kaufen."},
+ {id:"b2", t:"Red Moon Rose – alle Kapitel", s:"Start bei Keynes im Buchladen (Prolog); Folgebände über NPCs und Händler – die komplette Reihe wird spät gegen eine Top-Belohnung getauscht."},
+ {id:"b3", t:"Carnelia-Reprints", s:"Bände 1 & 2 bei Tommy's Imported Goods in Celdic (Kap. 1) – Sky-Fans wissen warum."},
+ {id:"b4", t:"Bibliotheks-Empfehlungen lesen", s:"Z. B. „Imperial Railways: A History" am ersten Tag – Empfehlungsregal regelmäßig prüfen (zählt für Prüfungs-AP!)."}
+];
+
+/* =================== STATE =================== */
+let state = {items:{}, bond:{}, sys:{}, ap:0};
+let memoryOnly=false;
+const KEY="cs1-thors-companion";
+
+async function loadState(){
+  try{
+    if(!window.storage) throw 0;
+    const r=await window.storage.get(KEY);
+    if(r && r.value) state=Object.assign(state, JSON.parse(r.value));
+  }catch(e){/* frisch starten */}
+}
+let t=null;
+function saveState(){
+  clearTimeout(t);
+  t=setTimeout(async()=>{
+    try{ if(!window.storage){memoryOnly=true; flagMem(); return;} await window.storage.set(KEY, JSON.stringify(state)); }
+    catch(e){ memoryOnly=true; flagMem(); }
+  },350);
+}
+function flagMem(){ if(memoryOnly) document.getElementById("memnote").textContent="Hinweis: Speicher nicht verfügbar – Fortschritt gilt nur für diese Sitzung."; }
+
+/* =================== PROGRESS =================== */
+const ALLITEMS = CHAPTERS.flatMap(c=>c.items).concat(BOOKS.map(b=>({id:b.id})));
+function updateProgress(){
+  let total=0, done=0;
+  ALLITEMS.forEach(i=>{ total++; if(state.items[i.id]) done++; });
+  SYSTEMS.forEach(s=>{ total+=s.max; done+=Math.min(s.max, state.sys[s.id]||0); });
+  BONDING.forEach(b=>{ total+=10; done+=Math.min(10, state.bond[b.id]||0); });
+  const pct = total? Math.round(done/total*100):0;
+  document.getElementById("pfill").style.width=pct+"%";
+  document.getElementById("ppct").textContent=pct+"%";
+  const ap=Math.min(440,Math.max(0,state.ap||0));
+  document.getElementById("apfill").style.width=(ap/440*100)+"%";
+  document.getElementById("apval").textContent=ap+" / 440"+(ap>=430?" · A0!":"");
+}
+
+/* =================== UI =================== */
+const el=(t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e;};
+const TABS=[["regeln","Studienordnung"],["kapitel","Kapitel & Quests"],["bonding","Bonding"],["systeme","Nebensysteme"]];
+
+function buildNav(){
+  const nav=document.getElementById("nav");
+  TABS.forEach(([id,label],i)=>{
+    const b=el("button","tab"+(i===0?" active":""),label);
+    b.onclick=()=>{
+      document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      document.querySelectorAll("section").forEach(s=>s.classList.remove("show"));
+      document.getElementById("sec-"+id).classList.add("show");
+      window.scrollTo({top:0,behavior:"smooth"});
+    };
+    nav.appendChild(b);
+  });
+}
+
+function checkRow(item){
+  const row=el("div","row"+(state.items[item.id]?" done":""));
+  const box=el("input","chk"); box.type="checkbox"; box.checked=!!state.items[item.id];
+  box.setAttribute("aria-label", item.t);
+  box.onchange=()=>{ state.items[item.id]=box.checked; row.classList.toggle("done",box.checked); saveState(); updateProgress(); };
+  const badge={hid:"<span class='badge b-hid'>Versteckt</span>",ap:"<span class='badge b-ap'>Bonus-AP</span>",note:"<span class='badge b-frei'>Nicht vergessen</span>"}[item.k]||"";
+  row.append(box, el("div","txt","<span class='t-name'>"+badge+"<b>"+item.t+"</b></span><small>"+item.s+"</small>"));
+  return row;
+}
+
+function renderRules(){
+  const s=el("section","show"); s.id="sec-regeln";
+  const p=el("div","panel");
+  p.append(el("div","kicker","§ 1 – Verhaltenskodex der Klasse VII"));
+  p.append(el("h2",null,"Die 10 Gebote für den perfekten Jahrgang"));
+  p.append(el("div","orn","━━ ❖ ━━"));
+  RULES.forEach((r,i)=>{
+    const row=el("div","row");
+    row.append(el("div","badge b-ap",String(i+1).padStart(2,"0")));
+    row.append(el("div","txt","<span class='t-name'><b>"+r[0]+"</b></span><small>"+r[1]+"</small>"));
+    p.append(row);
+  });
+  const p2=el("div","panel");
+  p2.append(el("div","kicker","§ 2 – Bewertungssystem"));
+  p2.append(el("h2",null,"Akademische Punkte (AP)"));
+  p2.append(el("div","orn","━━ ❖ ━━"));
+  p2.append(el("p","lead","AP gibt es für Pflicht-, Neben- und versteckte Quests sowie für Bonusbedingungen (richtige Dialogwahlen, perfekte Praxisprüfungen, Zusatzorte). Insgesamt existieren 440 AP; der höchste Schülerrang A0 samt Trophäe fällt bei 430 – du darfst also über das GANZE Spiel nur 10 AP liegen lassen. Das entspricht ungefähr zwei verpassten versteckten Quests… sprich: keiner. Rang-Aufstiege belohnen dich unterwegs mit Quartzen und Ausrüstung. Trage deinen AP-Stand oben nach jedem Kapitel-Report ein – so siehst du sofort, ob A0 noch drin ist. Für „S-Rang" in einem Kapitel brauchst du alle AP des Kapitels; A0 erlaubt höchstens einen A-Rang-Ausrutscher."));
+  s.append(p,p2);
+  return s;
+}
+
+function renderChapters(){
+  const s=el("section"); s.id="sec-kapitel";
+  const p=el("div","panel");
+  p.append(el("div","kicker","§ 3 – Semesterplan"));
+  p.append(el("h2",null,"Kapitel, versteckte Quests & AP-Fallen"));
+  p.append(el("div","orn","━━ ❖ ━━"));
+  p.append(el("p","lead","Reguläre Quests stehen im Questbrief und auf der Karte – die brauchst du hier nicht. Diese Liste enthält das, was das Spiel dir verschweigt: alle 15 versteckten Quests mit Datum, Ort und Auftraggeber sowie die Bonus-AP-Bedingungen. Monatsrhythmus: freier Tag (Quests + Bonding + Schulhaus ZULETZT) → Praxisprüfung → Feldstudie."));
+  CHAPTERS.forEach(ch=>{
+    const d=el("details");
+    const doneCount=()=>ch.items.filter(i=>state.items[i.id]).length;
+    const sum=el("summary",null,"<span>"+ch.n+"</span><span class='sum-i'></span>");
+    d.append(sum);
+    const body=el("div","dbody");
+    body.append(el("div",null,"<span class='chip'>"+ch.ort+"</span>"));
+    const upd=()=>{ sum.querySelector(".sum-i").textContent=doneCount()+" / "+ch.items.length; };
+    ch.items.forEach(item=>{
+      const row=checkRow(item);
+      row.querySelector("input").addEventListener("change",upd);
+      body.append(row);
+    });
+    upd();
+    d.append(body);
+    p.append(d);
+  });
+  p.append(el("div","note","Die Feldstudien-Regionen: Celdic → Bareahard → Nord → Heimdallr → Legram → Roer. Einmal verlassen = für immer vorbei, also vor jeder Abreise Quests, Bücher, Truhen und Angelplätze prüfen."));
+  s.append(p);
+  return s;
+}
+
+function renderBonding(){
+  const s=el("section"); s.id="sec-bonding";
+  const p=el("div","panel");
+  p.append(el("div","kicker","§ 4 – Kameradschaft"));
+  p.append(el("h2",null,"Bonding-Planer"));
+  p.append(el("div","orn","━━ ❖ ━━"));
+  p.append(el("p","lead","Trage ein, in wen du deine knappen Bonding-Punkte investierst (0–10 als persönliche Skala). Merke: In einem Durchgang sind nicht alle Max-Bindungen möglich – plane deinen Favoriten für Run 1 und den Rest für NG+."));
+  const grid=el("div","cgrid");
+  BONDING.forEach(c=>{
+    const card=el("div","ccard");
+    card.append(el("div","arc","Verbindung"));
+    card.append(el("h3",null,c.n));
+    card.append(el("div","meta",c.note));
+    const ctl=el("div","rankctl");
+    const minus=el("button","rbtn","−"); minus.setAttribute("aria-label","Bonding senken: "+c.n);
+    const plus=el("button","rbtn","+"); plus.setAttribute("aria-label","Bonding erhöhen: "+c.n);
+    const pips=el("div","pips"); const num=el("div","rnum");
+    for(let i=0;i<10;i++) pips.append(el("div","pip"));
+    function draw(){
+      const r=Math.min(10,Math.max(0,state.bond[c.id]||0));
+      pips.querySelectorAll(".pip").forEach((pp,i)=>pp.className="pip"+(i<r?(r===10?" max":" on"):""));
+      num.textContent=r+"/10";
+    }
+    minus.onclick=()=>{state.bond[c.id]=Math.max(0,(state.bond[c.id]||0)-1); draw(); saveState(); updateProgress();};
+    plus.onclick=()=>{state.bond[c.id]=Math.min(10,(state.bond[c.id]||0)+1); draw(); saveState(); updateProgress();};
+    ctl.append(minus,pips,plus,num); card.append(ctl); draw();
+    grid.append(card);
+  });
+  p.append(grid);
+  const p2=el("div","panel");
+  p2.append(el("div","kicker","Merkblatt"));
+  p2.append(el("h2",null,"Bonding-Grundsätze"));
+  p2.append(el("div","orn","━━ ❖ ━━"));
+  BOND_NOTES.forEach(m=>{
+    const row=el("div","row");
+    row.append(el("div","badge b-hid","♥"));
+    row.append(el("div","txt","<span class='t-name'><b>"+m[0]+"</b></span><small>"+m[1]+"</small>"));
+    p2.append(row);
+  });
+  s.append(p,p2);
+  return s;
+}
+
+function renderSystems(){
+  const s=el("section"); s.id="sec-systeme";
+  const p=el("div","panel");
+  p.append(el("div","kicker","§ 5 – Nebensysteme der Akademie"));
+  p.append(el("h2",null,"Zähler & Langzeitziele"));
+  p.append(el("div","orn","━━ ❖ ━━"));
+  SYSTEMS.forEach(c=>{
+    const row=el("div","counter");
+    const info=el("div","cinfo","<b>"+c.n+"</b><small>"+c.s+"</small>");
+    const ctl=el("div","cctl");
+    const minus=el("button","rbtn","−"); minus.setAttribute("aria-label",c.n+" verringern");
+    const plus=el("button","rbtn","+"); plus.setAttribute("aria-label",c.n+" erhöhen");
+    const val=el("div","cval");
+    function draw(){
+      const v=Math.min(c.max,Math.max(0,state.sys[c.id]||0));
+      val.textContent=v+" / "+c.max;
+      val.classList.toggle("full", v===c.max);
+    }
+    minus.onclick=()=>{state.sys[c.id]=Math.max(0,(state.sys[c.id]||0)-1); draw(); saveState(); updateProgress();};
+    plus.onclick=()=>{state.sys[c.id]=Math.min(c.max,(state.sys[c.id]||0)+1); draw(); saveState(); updateProgress();};
+    ctl.append(minus,val,plus); row.append(info,ctl); draw();
+    p.append(row);
+  });
+  const p2=el("div","panel");
+  p2.append(el("div","kicker","§ 6 – Bibliothek"));
+  p2.append(el("h2",null,"Bücher – die fiesesten Missables"));
+  p2.append(el("div","orn","━━ ❖ ━━"));
+  BOOKS.forEach(b=>p2.append(checkRow({id:b.id,k:"note",t:b.t,s:b.s})));
+  p2.append(el("div","note","Bei Zähler-Kategorien ohne exakt verifizierbare Maximalzahl (Lotte, Thomas, Angelrang) dient der Zähler als Richtwert – die genauen Staffeln stehen in Fundort-Listen der Community."));
+  s.append(p,p2);
+  return s;
+}
+
+/* =================== INIT =================== */
+async function init(){
+  await loadState();
+  buildNav();
+  const main=document.getElementById("main");
+  main.append(renderRules(), renderChapters(), renderBonding(), renderSystems());
+  document.querySelectorAll(".apbtn").forEach(b=>{
+    b.onclick=()=>{ state.ap=Math.min(440,Math.max(0,(state.ap||0)+parseInt(b.dataset.d))); saveState(); updateProgress(); };
+  });
+  updateProgress();
+  document.getElementById("resetBtn").onclick=async()=>{
+    if(!confirm("Wirklich den gesamten Fortschritt zurücksetzen?")) return;
+    state={items:{},bond:{},sys:{},ap:0};
+    try{ if(window.storage) await window.storage.delete(KEY); }catch(e){}
+    location.reload();
+  };
+}
+init();
+</script>
+</body>
+</html>
