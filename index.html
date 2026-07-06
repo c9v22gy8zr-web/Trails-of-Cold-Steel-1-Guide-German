@@ -149,7 +149,7 @@
     <div class="gauge">
       <div class="glabel"><span>AKADEMISCHE PUNKTE (AP)</span><span id="apval">0 / 440</span></div>
       <div class="gbar"><div class="gfill red" id="apfill"></div><div class="target" title="A0-Schwelle: 430"></div></div>
-      <div class="gnote">Rang A0 („Valedictorian") ab 430 – nur 10 AP dürfen fehlen! Trage deinen Stand nach jedem Kapitel-Report ein:</div>
+      <div class="gnote">Rang A0 („Valedictorian“) ab 430 – nur 10 AP dürfen fehlen! Trage deinen Stand nach jedem Kapitel-Report ein:</div>
       <div class="ap-ctl">
         <button class="apbtn" data-d="-5">−5</button><button class="apbtn" data-d="-1">−1</button>
         <button class="apbtn" data-d="1">+1</button><button class="apbtn" data-d="5">+5</button><button class="apbtn" data-d="10">+10</button>
@@ -184,14 +184,14 @@ const RULES = [
 
 const CHAPTERS = [
  {n:"Prolog · Winterende (31.3.–3.4.)", ort:"Trista / Thors", items:[
-   {id:"p1", k:"note", t:"Erste AP-Frage im Unterricht", s:"Instructor Thomas' Frage mit „Nord Highlands" beantworten (+AP). Danach in der Bibliothek „Imperial Railways: A History" lesen – erstes Buch der Sammlung!"},
-   {id:"p2", k:"note", t:"Trista erkunden", s:"Angelbuch abholen, beim Buchladen (Keynes) „Red Moon Rose – Kapitel 1" mitnehmen, mit allen NPCs sprechen."}
+   {id:"p1", k:"note", t:"Erste AP-Frage im Unterricht", s:"Instructor Thomas' Frage mit „Nord Highlands“ beantworten (+AP). Danach in der Bibliothek „Imperial Railways: A History“ lesen – erstes Buch der Sammlung!"},
+   {id:"p2", k:"note", t:"Trista erkunden", s:"Angelbuch abholen, beim Buchladen (Keynes) „Red Moon Rose – Kapitel 1“ mitnehmen, mit allen NPCs sprechen."}
  ]},
  {n:"Kapitel 1 · April – Feldstudie: Celdic", ort:"Freier Tag 18.4. · Praxisprüfung 21.4. · Celdic 23.–25.4.", items:[
    {id:"c1h1", k:"hid", t:"Story of Seasoning", s:"18.4. abends · Kirsche's Café & Inn · Fred an der Theke. Zutat via EC-Raum (Nicholas) & Ramsay in der Küche besorgen."},
    {id:"c1p", k:"ap", t:"Praxisprüfung 21.4.: ohne K.O. gewinnen", s:"+1 Bonus-AP am Kapitelende."},
-   {id:"c1h2", k:"hid", t:"A Day as a Merchant", s:"24.4. · Grand Market Celdic (südwestlicher Stand) · Händler Lymon. 3+2 AP – die Verkaufs-Dialoge richtig wählen (u. a. „The provinces"). Vorher NICHT im Gasthaus den Tag beenden!"},
-   {id:"c1n", k:"note", t:"Celdic-Einkäufe", s:"Sitting Mishy (Hofen-Stand!), Carnelia-Reprints 1 & 2 (Tommy's Imported Goods), Rezept „Whole Juice" bei Tisel im Farmhaus. Straßenlaterne West-Celdic-Highway 2: Code „466515" (+1 AP)."}
+   {id:"c1h2", k:"hid", t:"A Day as a Merchant", s:"24.4. · Grand Market Celdic (südwestlicher Stand) · Händler Lymon. 3+2 AP – die Verkaufs-Dialoge richtig wählen (u. a. „The provinces“). Vorher NICHT im Gasthaus den Tag beenden!"},
+   {id:"c1n", k:"note", t:"Celdic-Einkäufe", s:"Sitting Mishy (Hofen-Stand!), Carnelia-Reprints 1 & 2 (Tommy's Imported Goods), Rezept „Whole Juice“ bei Tisel im Farmhaus. Straßenlaterne West-Celdic-Highway 2: Code „466515“ (+1 AP)."}
  ]},
  {n:"Kapitel 2 · Mai – Feldstudie: Bareahard", ort:"Freier Tag 23.5. · Bareahard 30.–31.5.", items:[
    {id:"c2h1", k:"hid", t:"A Rose by Any Other Name", s:"23.5. abends · Kunstraum, Hauptgebäude 2F · Linde."},
@@ -200,7 +200,7 @@ const CHAPTERS = [
    {id:"c2n", k:"note", t:"Bareahard-Nebenläufe", s:"Hammonds Zutatenliste (Sorciere): Globby Fat ×5 (Nord-Kreuzen-Highway) + Healing Herb (Schwester Tatiana, Kathedrale). Monster-Quest zuletzt – sie treibt die Story voran!"}
  ]},
  {n:"Kapitel 3 · Juni – Feldstudie: Nord-Hochebene", ort:"Freier Tag 20.6. · Nord 27.–29.6. · Zwischenprüfung!", items:[
-   {id:"c3s", k:"ap", t:"15.6.: Für die Zwischenprüfung lernen", s:"OHNE Lernschritte keine Prüfungs-AP: u. a. „Erebonian History in Pictures" im Literaturclub lesen und die vorgegebenen Mitschüler ansprechen – erst danach sind die richtigen Antworten etwas wert."},
+   {id:"c3s", k:"ap", t:"15.6.: Für die Zwischenprüfung lernen", s:"OHNE Lernschritte keine Prüfungs-AP: u. a. „Erebonian History in Pictures“ im Literaturclub lesen und die vorgegebenen Mitschüler ansprechen – erst danach sind die richtigen Antworten etwas wert."},
    {id:"c3h1", k:"hid", t:"A Sticky Situation", s:"20.6. abends · Hauptgebäude · Munk."},
    {id:"c3h2", k:"hid", t:"Connecting Hearts", s:"27.6. · Zender-Tor · Sharl."}
  ]},
@@ -208,10 +208,10 @@ const CHAPTERS = [
    {id:"c4h1", k:"hid", t:"Swimming Lessons", s:"18.7. tagsüber · Lehrerzimmer · Neithardt. Wettschwimmen gegen einen Mitschüler (Link-EXP!) – GEWINNEN für +1 AP (4+1). Beliebig wiederholbar."},
    {id:"c4h2", k:"hid", t:"A Brush with Destiny", s:"18.7. abends · Verbrennungsanlage/Akademie-Gelände · Hausmeister Gyler → danach Rektor Vandyck."},
    {id:"c4h3", k:"hid", t:"In Case of Emergency", s:"26.7. · Vainqueur-Straße (Plaza Bifrost) · Bond → Saftstand vor Hotel Der Himmel (Jonathan) → Café Etoile (Tourist)."},
-   {id:"c4n", k:"note", t:"Heimdallr komplett ablaufen", s:"Mater Park über den Untergrund-Durchgang (Hotel Der Himmel) finden, neue Angelplätze (Waterway, Hafen, Mater Park, Dreichels-Platz), Rezept „Fried Fish" bei Gamgee, Schrittzähler-Quest bei Le Sage."}
+   {id:"c4n", k:"note", t:"Heimdallr komplett ablaufen", s:"Mater Park über den Untergrund-Durchgang (Hotel Der Himmel) finden, neue Angelplätze (Waterway, Hafen, Mater Park, Dreichels-Platz), Rezept „Fried Fish“ bei Gamgee, Schrittzähler-Quest bei Le Sage."}
  ]},
  {n:"Kapitel 5 · August – Feldstudie: Legram", ort:"Freier Tag 22.8. · Legram 29.–31.8. · 3 versteckte Quests!", items:[
-   {id:"c5s", k:"ap", t:"21.8.: Unterrichtsfrage", s:"„Eisenritter" antworten (+1 AP)."},
+   {id:"c5s", k:"ap", t:"21.8.: Unterrichtsfrage", s:"„Eisenritter“ antworten (+1 AP)."},
    {id:"c5h1", k:"hid", t:"Swimming Lessons Mk. 2", s:"22.8. tagsüber · Lehrerzimmer · Sara. Diesmal gegen die Mädchen – wieder gewinnen (4+1 AP)."},
    {id:"c5h2", k:"hid", t:"The Sleeping Boy", s:"22.8. abends · Haus südlich des Pfandhauses in Trista · Hanna → Kurt in der Kapelle (erste Antwort wählen)."},
    {id:"c5h3", k:"hid", t:"Charm of Eisenritter", s:"29.8. · Anlegestelle hinter der Bracer-Gilde in Legram · Cindy. Luminous Grass auf dem Ebel-Highway 2 pflücken."},
@@ -255,9 +255,9 @@ const SYSTEMS = [
  {id:"recipes", n:"Rezepte", max:20, s:"Aus Quests und NPC-Gesprächen. Volles Rezeptbuch (alle Gerichte gekocht) → Margarita vor dem Schulhaus-Finale ansprechen."},
  {id:"celine", n:"Celine mit Milch füttern (Kapitel)", max:5, s:"Ab Kapitel 3 taucht die Katze pro Kapitel an mehreren Orten auf – überall Frische Milch geben, jede komplette Runde gibt eine Belohnung."},
  {id:"hidden", n:"Versteckte Quests", max:15, s:"2 pro Kapitel, außer Kap. 4 & 5 (je 3) und Finale (1). Details im Kapitel-Tab – jede einzelne zählt für A0."},
- {id:"monsters", n:"Monsterkunde", max:197, s:"Alle Spezies besiegen/analysieren. Achtung bei Panda-, Waschbär- und Tomaten-Gegnern („No appearance") und einmaligen Story-Gegnern."},
+ {id:"monsters", n:"Monsterkunde", max:197, s:"Alle Spezies besiegen/analysieren. Achtung bei Panda-, Waschbär- und Tomaten-Gegnern („No appearance“) und einmaligen Story-Gegnern."},
  {id:"lotte", n:"Einzigartige Gerichte an Lotte", max:12, s:"Vor dem Oberklassen-Wohnheim nimmt Lotte jedes Unique-Gericht einmal an – Belohnungsstaffel (Zähler als Richtwert)."},
- {id:"thomas", n:"Peculiar-Gerichte an Instructor Thomas", max:12, s:"Gleiche Mechanik mit den „misslungenen" Spezialgerichten (Zähler als Richtwert)."},
+ {id:"thomas", n:"Peculiar-Gerichte an Instructor Thomas", max:12, s:"Gleiche Mechanik mit den „misslungenen“ Spezialgerichten (Zähler als Richtwert)."},
  {id:"fish", n:"Angelrang bei Kenneth", max:10, s:"Neue Fischarten fangen und Kenneth (Teich am Gym) melden – jede Stufe gibt Köder/Privilegien (Zähler als Richtwert)."}
 ];
 
@@ -265,7 +265,7 @@ const BOOKS = [
  {id:"b1", t:"Imperial Chronicle – jede Ausgabe", s:"Erscheint kapitelweise (Buchladen/NPCs) und ist danach WEG. Bei jedem Kapitelstart kaufen."},
  {id:"b2", t:"Red Moon Rose – alle Kapitel", s:"Start bei Keynes im Buchladen (Prolog); Folgebände über NPCs und Händler – die komplette Reihe wird spät gegen eine Top-Belohnung getauscht."},
  {id:"b3", t:"Carnelia-Reprints", s:"Bände 1 & 2 bei Tommy's Imported Goods in Celdic (Kap. 1) – Sky-Fans wissen warum."},
- {id:"b4", t:"Bibliotheks-Empfehlungen lesen", s:"Z. B. „Imperial Railways: A History" am ersten Tag – Empfehlungsregal regelmäßig prüfen (zählt für Prüfungs-AP!)."}
+ {id:"b4", t:"Bibliotheks-Empfehlungen lesen", s:"Z. B. „Imperial Railways: A History“ am ersten Tag – Empfehlungsregal regelmäßig prüfen (zählt für Prüfungs-AP!)."}
 ];
 
 /* =================== STATE =================== */
@@ -350,7 +350,7 @@ function renderRules(){
   p2.append(el("div","kicker","§ 2 – Bewertungssystem"));
   p2.append(el("h2",null,"Akademische Punkte (AP)"));
   p2.append(el("div","orn","━━ ❖ ━━"));
-  p2.append(el("p","lead","AP gibt es für Pflicht-, Neben- und versteckte Quests sowie für Bonusbedingungen (richtige Dialogwahlen, perfekte Praxisprüfungen, Zusatzorte). Insgesamt existieren 440 AP; der höchste Schülerrang A0 samt Trophäe fällt bei 430 – du darfst also über das GANZE Spiel nur 10 AP liegen lassen. Das entspricht ungefähr zwei verpassten versteckten Quests… sprich: keiner. Rang-Aufstiege belohnen dich unterwegs mit Quartzen und Ausrüstung. Trage deinen AP-Stand oben nach jedem Kapitel-Report ein – so siehst du sofort, ob A0 noch drin ist. Für „S-Rang" in einem Kapitel brauchst du alle AP des Kapitels; A0 erlaubt höchstens einen A-Rang-Ausrutscher."));
+  p2.append(el("p","lead","AP gibt es für Pflicht-, Neben- und versteckte Quests sowie für Bonusbedingungen (richtige Dialogwahlen, perfekte Praxisprüfungen, Zusatzorte). Insgesamt existieren 440 AP; der höchste Schülerrang A0 samt Trophäe fällt bei 430 – du darfst also über das GANZE Spiel nur 10 AP liegen lassen. Das entspricht ungefähr zwei verpassten versteckten Quests… sprich: keiner. Rang-Aufstiege belohnen dich unterwegs mit Quartzen und Ausrüstung. Trage deinen AP-Stand oben nach jedem Kapitel-Report ein – so siehst du sofort, ob A0 noch drin ist. Für „S-Rang“ in einem Kapitel brauchst du alle AP des Kapitels; A0 erlaubt höchstens einen A-Rang-Ausrutscher."));
   s.append(p,p2);
   return s;
 }
